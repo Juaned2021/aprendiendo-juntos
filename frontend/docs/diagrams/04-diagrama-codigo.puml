@@ -1,0 +1,372 @@
+@startuml DiagramaCodigo
+!theme plain
+skinparam backgroundColor #F8F9FA
+skinparam classAttributeIconSize 0
+skinparam class {
+    BackgroundColor #FFFFFF
+    BorderColor #333333
+    FontColor #000000
+}
+
+title Diagrama de Código - Clases y Relaciones
+note right of title
+  Estructura detallada de clases,
+  métodos, atributos y relaciones
+end note
+
+' ==================== BASE ENTITIES ====================
+abstract class BaseEntity {
+    - int Id
+    - DateTime CreatedAt
+    - DateTime UpdatedAt
+    + IsValid() : bool
+}
+
+' ==================== DOMAIN ENTITIES ====================
+class User {
+    - string Email
+    - string PasswordHash
+    - string Nombre
+    - string Apellido
+    - int RolId
+    - DateTime? UltimoLogin
+    - bool Activo
+    + Validate() : bool
+    + UpdateLastLogin() : void
+    + HasPermission(string permission) : bool
+}
+
+class Rol {
+    - string Nombre
+    - string Descripcion
+    - List<Permiso> Permisos
+    + AddPermiso(Permiso permiso) : void
+    + RemovePermiso(Permiso permiso) : void
+    + HasPermission(string permission) : bool
+}
+
+class Permiso {
+    - string Nombre
+    - string Descripcion
+    - string Modulo
+}
+
+class Horario {
+    - string Asignatura
+    - DateTime FechaInicio
+    - DateTime FechaFin
+    - string DiaSemana
+    - string Salon
+    - int ProfesorId
+    + ValidateConflict(Horario other) : bool
+    + GetDuration() : TimeSpan
+}
+
+class Calificacion {
+    - decimal Nota
+    - string Periodo
+    - int AsignaturaId
+    - int AlumnoId
+    - string Observaciones
+    + IsAprobado() : bool
+    + ValidateRange() : bool
+}
+
+class Asignatura {
+    - string Nombre
+    - string Codigo
+    - int Creditos
+    - string Descripcion
+    + GetCreditos() : int
+}
+
+' ==================== DTOs ====================
+class LoginDTO {
+    + string Email
+    + string Password
+    + Validate() : ValidationResult
+}
+
+class RegisterDTO {
+    + string Email
+    + string Password
+    + string ConfirmPassword
+    + string Nombre
+    + string Apellido
+    + Validate() : ValidationResult
+}
+
+class UserDTO {
+    + int Id
+    + string Email
+    + string Nombre
+    + string Apellido
+    + string Rol
+    + DateTime CreatedAt
+}
+
+class HorarioDTO {
+    + int Id
+    + string Asignatura
+    + DateTime FechaInicio
+    + DateTime FechaFin
+    + string DiaSemana
+    + string Salon
+}
+
+class CalificacionDTO {
+    + int Id
+    + decimal Nota
+    + string Periodo
+    + string AsignaturaNombre
+    + string AlumnoNombre
+}
+
+class AuthResponseDTO {
+    + string AccessToken
+    + string RefreshToken
+    + DateTime Expiration
+    + UserDTO User
+}
+
+' ==================== INTERFACES ====================
+interface IUserRepository {
+    + GetAllAsync() : Task<List<User>>
+    + GetByIdAsync(int id) : Task<User>
+    + GetByEmailAsync(string email) : Task<User>
+    + AddAsync(User user) : Task<int>
+    + UpdateAsync(User user) : Task<bool>
+    + DeleteAsync(int id) : Task<bool>
+}
+
+interface IRolRepository {
+    + GetAllAsync() : Task<List<Rol>>
+    + GetByIdAsync(int id) : Task<Rol>
+    + GetByNameAsync(string nombre) : Task<Rol>
+    + AddAsync(Rol rol) : Task<int>
+}
+
+interface IHorarioRepository {
+    + GetAllAsync() : Task<List<Horario>>
+    + GetByIdAsync(int id) : Task<Horario>
+    + GetByProfesorIdAsync(int profesorId) : Task<List<Horario>>
+    + AddAsync(Horario horario) : Task<int>
+    + UpdateAsync(Horario horario) : Task<bool>
+    + DeleteAsync(int id) : Task<bool>
+}
+
+interface ICalificacionRepository {
+    + GetAllAsync() : Task<List<Calificacion>>
+    + GetByIdAsync(int id) : Task<Calificacion>
+    + GetByAlumnoIdAsync(int alumnoId) : Task<List<Calificacion>>
+    + AddAsync(Calificacion calificacion) : Task<int>
+    + UpdateAsync(Calificacion calificacion) : Task<bool>
+}
+
+' ==================== REPOSITORIES ====================
+class UserRepository {
+    - AppDbContext _context
+    + UserRepository(AppDbContext context)
+    + GetAllAsync() : Task<List<User>>
+    + GetByIdAsync(int id) : Task<User>
+    + GetByEmailAsync(string email) : Task<User>
+    + AddAsync(User user) : Task<int>
+    + UpdateAsync(User user) : Task<bool>
+    + DeleteAsync(int id) : Task<bool>
+}
+
+class RolRepository {
+    - AppDbContext _context
+    + RolRepository(AppDbContext context)
+    + GetAllAsync() : Task<List<Rol>>
+    + GetByIdAsync(int id) : Task<Rol>
+    + GetByNameAsync(string nombre) : Task<Rol>
+    + AddAsync(Rol rol) : Task<int>
+}
+
+class HorarioRepository {
+    - AppDbContext _context
+    + HorarioRepository(AppDbContext context)
+    + GetAllAsync() : Task<List<Horario>>
+    + GetByIdAsync(int id) : Task<Horario>
+    + GetByProfesorIdAsync(int id) : Task<List<Horario>>
+    + AddAsync(Horario horario) : Task<int>
+    + UpdateAsync(Horario horario) : Task<bool>
+    + DeleteAsync(int id) : Task<bool>
+}
+
+class CalificacionRepository {
+    - AppDbContext _context
+    + CalificacionRepository(AppDbContext context)
+    + GetAllAsync() : Task<List<Calificacion>>
+    + GetByIdAsync(int id) : Task<Calificacion>
+    + GetByAlumnoIdAsync(int id) : Task<List<Calificacion>>
+    + AddAsync(Calificacion calif) : Task<int>
+    + UpdateAsync(Calificacion calif) : Task<bool>
+}
+
+' ==================== SERVICES ====================
+class AuthService {
+    - IUserRepository _userRepo
+    - IJwtService _jwtService
+    - IPasswordHasher _passwordHasher
+    + AuthService(IUserRepository userRepo, IJwtService jwtService, IPasswordHasher hasher)
+    + LoginAsync(LoginDTO dto) : Task<AuthResponseDTO>
+    + RegisterAsync(RegisterDTO dto) : Task<AuthResponseDTO>
+    + RefreshTokenAsync(string refreshToken) : Task<AuthResponseDTO>
+    + LogoutAsync(string token) : Task
+    - ValidateCredentials(string email, string password) : Task<User>
+}
+
+class UserService {
+    - IUserRepository _userRepo
+    - IRolRepository _rolRepo
+    + UserService(IUserRepository userRepo, IRolRepository rolRepo)
+    + GetAllAsync() : Task<List<UserDTO>>
+    + GetByIdAsync(int id) : Task<UserDTO>
+    + CreateAsync(RegisterDTO dto) : Task<UserDTO>
+    + UpdateAsync(int id, UserDTO dto) : Task<UserDTO>
+    + DeleteAsync(int id) : Task<bool>
+    - MapToDTO(User user) : UserDTO
+}
+
+class HorarioService {
+    - IHorarioRepository _horarioRepo
+    + HorarioService(IHorarioRepository horarioRepo)
+    + GetAllAsync() : Task<List<HorarioDTO>>
+    + GetByIdAsync(int id) : Task<HorarioDTO>
+    + CreateAsync(HorarioDTO dto) : Task<HorarioDTO>
+    + UpdateAsync(int id, HorarioDTO dto) : Task<HorarioDTO>
+    + DeleteAsync(int id) : Task<bool>
+    - ValidateConflict(Horario horario) : bool
+}
+
+class CalificacionService {
+    - ICalificacionRepository _califRepo
+    + CalificacionService(ICalificacionRepository califRepo)
+    + GetAllAsync() : Task<List<CalificacionDTO>>
+    + GetByIdAsync(int id) : Task<CalificacionDTO>
+    + GetByAlumnoIdAsync(int alumnoId) : Task<List<CalificacionDTO>>
+    + CreateAsync(CalificacionDTO dto) : Task<CalificacionDTO>
+    + UpdateAsync(int id, CalificacionDTO dto) : Task<CalificacionDTO>
+    + DeleteAsync(int id) : Task<bool>
+    - CalculatePromedio(int alumnoId) : Task<decimal>
+}
+
+' ==================== SUPPORTING SERVICES ====================
+interface IJwtService {
+    + GenerateToken(User user) : string
+    + ValidateToken(string token) : bool
+    + GetClaimsFromToken(string token) : ClaimsPrincipal
+}
+
+interface IPasswordHasher {
+    + HashPassword(string password) : string
+    + VerifyPassword(string password, string hash) : bool
+}
+
+class JwtService {
+    - JwtOptions _options
+    + JwtService(IOptions<JwtOptions> options)
+    + GenerateToken(User user) : string
+    + ValidateToken(string token) : bool
+    + GetClaimsFromToken(string token) : ClaimsPrincipal
+    - CreateClaims(User user) : List<Claim>
+}
+
+class PasswordHasher {
+    + HashPassword(string password) : string
+    + VerifyPassword(string password, string hash) : bool
+}
+
+' ==================== DB CONTEXT ====================
+class AppDbContext {
+    - DbContextOptions _options
+    + DbSet<User> Users
+    + DbSet<Rol> Roles
+    + DbSet<Horario> Horarios
+    + DbSet<Calificacion> Calificaciones
+    + DbSet<Asignatura> Asignaturas
+    + AppDbContext(DbContextOptions options)
+    + OnModelCreating(ModelBuilder builder) : void
+}
+
+' ==================== RELATIONSHIPS ====================
+BaseEntity <|-- User
+BaseEntity <|-- Rol
+BaseEntity <|-- Horario
+BaseEntity <|-- Calificacion
+BaseEntity <|-- Asignatura
+
+User "1" *-- "1" Rol : tiene
+Rol "1" *-- "0..*" Permiso : tiene
+Horario "1" --> "1" User : Profesor
+Calificacion "1" --> "1" User : Alumno
+Calificacion "1" --> "1" Asignatura : pertenece
+
+UserRepository ..|> IUserRepository : implements
+RolRepository ..|> IRolRepository : implements
+HorarioRepository ..|> IHorarioRepository : implements
+CalificacionRepository ..|> ICalificacionRepository : implements
+
+AuthService --> IUserRepository : uses
+AuthService --> IJwtService : uses
+AuthService --> IPasswordHasher : uses
+
+UserService --> IUserRepository : uses
+UserService --> IRolRepository : uses
+
+HorarioService --> IHorarioRepository : uses
+CalificacionService --> ICalificacionRepository : uses
+
+JwtService ..|> IJwtService : implements
+PasswordHasher ..|> IPasswordHasher : implements
+
+UserRepository --> AppDbContext : uses
+RolRepository --> AppDbContext : uses
+HorarioRepository --> AppDbContext : uses
+CalificacionRepository --> AppDbContext : uses
+
+' ==================== NOTES ====================
+note right of User
+  Entidad de dominio
+  Representa un usuario del sistema
+  Incluye datos de autenticación
+  y perfil
+end note
+
+note right of AuthService
+  Servicio de autenticación
+  Coordina repositorios y servicios
+  Implementa lógica de login/registro
+  Maneja tokens JWT
+end note
+
+note right of IUserRepository
+  Interface para acceso a datos
+  Permite testing con mocks
+  Principio de inversión de dependencias
+end note
+
+note right of JwtService
+  Servicio para generación de JWT
+  Configura claims y expiración
+  Valida firma de tokens
+end note
+
+note right of AppDbContext
+  Contexto de Entity Framework
+  Configura entidades y relaciones
+  Maneja migrations
+end note
+
+legend right
+  |= Color |= Tipo |
+  | <back:#FFFFFF> | Entidades de Dominio |
+  | <back:#FFFFFF> | DTOs |
+  | <back:#FFFFFF> | Interfaces |
+  | <back:#FFFFFF> | Repositories |
+  | <back:#FFFFFF> | Services |
+endlegend
+
+@enduml

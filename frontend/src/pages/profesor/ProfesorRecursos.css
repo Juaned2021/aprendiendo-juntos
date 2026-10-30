@@ -1,0 +1,121 @@
+.profesor-recursos-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  background: #fff;
+  padding: 2.2rem 2rem 2rem 2rem;
+  border-radius: 10px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.09);
+  max-width: 440px;
+  margin-bottom: 2rem;
+}
+.input-type-selector {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.input-type-selector button {
+  flex: 1;
+  padding: 0.6rem 0.5rem;
+  background: #f0f0f0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.input-type-selector button.active {
+  background: #e0eafc;
+  border-color: #2d72d9;
+  color: #2d72d9;
+  font-weight: 600;
+}
+
+.form-titulo {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #2d72d9;
+  margin-bottom: 0.5rem;
+}
+
+.profesor-recursos-form label {
+  font-weight: 500;
+  color: #333;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.profesor-recursos-form input[type="file"] {
+  margin-top: 0.5rem;
+}
+.profesor-recursos-form input[type="text"] {
+  padding: 0.6rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+.profesor-recursos-form textarea {
+  padding: 0.6rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+  resize: vertical;
+  min-height: 60px;
+  max-height: 160px;
+}
+
+.form-error {
+  color: #d32f2f;
+  font-size: 0.93rem;
+  margin-top: 0.2rem;
+}
+
+.archivo-preview {
+  margin: 0.5rem 0 0.7rem 0;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.archivo-preview-img {
+  max-width: 90px;
+  max-height: 90px;
+  border-radius: 6px;
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+}
+.archivo-preview-pdf {
+  font-size: 2.2rem;
+  color: #e57300;
+  background: #fff7e6;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  border: 1px solid #ffd180;
+}
+.archivo-preview-document {
+  font-size: 2.2rem;
+  color: #2d72d9;
+  background: #f0f7ff;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  border: 1px solid #b3c7e6;
+}
+
+.profesor-recursos-form button[type="submit"] {
+  background: #2d72d9;
+  color: #fff;
+  border: none;
+  padding: 0.85rem 1.5rem;
+  border-radius: 4px;
+  font-size: 1.05rem;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.2s;
+  margin-top: 0.5rem;
+}
+.profesor-recursos-form button[type="submit"]:disabled {
+  background: #b3c7e6;
+  cursor: not-allowed;
+}

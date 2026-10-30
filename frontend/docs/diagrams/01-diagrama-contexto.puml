@@ -1,0 +1,108 @@
+@startuml DiagramaContexto
+!theme plain
+skinparam backgroundColor #F8F9FA
+skinparam componentStyle rectangle
+skinparam rectangle {
+    BackgroundColor #E3F2FD
+    BorderColor #1976D2
+    FontColor #0D47A1
+}
+skinparam actor {
+    BackgroundColor #FFF3E0
+    BorderColor #F57C00
+}
+
+title Diagrama de Contexto - Plataforma Escolar
+note right of title
+  Vista de alto nivel del sistema
+  y sus interacciones externas
+end note
+
+actor "Usuario Final" as User <<actor>>
+actor "Administrador" as Admin <<actor>>
+actor "Profesor" as Teacher <<actor>>
+actor "Alumno" as Student <<actor>>
+
+package "Sistema Plataforma Escolar" {
+    component "Frontend React" as Frontend {
+        [UI Components]
+        [State Management]
+        [Routing]
+        [API Client]
+    }
+    
+    component "API .NET Core" as API {
+        [Controllers]
+        [Services]
+        [Repositories]
+        [JWT Middleware]
+        [DTOs]
+    }
+    
+    database "Supabase PostgreSQL" as DB {
+        [Tablas de Datos]
+        [Relaciones]
+        [Restricciones]
+    }
+}
+
+package "Servicios Externos" {
+    component "Email Service" as Email
+    component "Notification Service" as Notify
+    component "Payment Gateway" as Payment
+}
+
+' Relaciones de autenticación
+User --> Frontend : Interactúa\nNavegador
+Frontend --> API : HTTPS\nREST API
+API --> DB : PostgreSQL\nEntity Framework
+
+' Relaciones de usuarios específicos
+Admin --> Frontend : Gestión\nAdministrativa
+Teacher --> Frontend : Gestión\nAcadémica
+Student --> Frontend : Consulta\nPersonal
+
+' Relaciones con servicios externos
+API --> Email : Envío\nNotificaciones
+API --> Notify : Push\nNotifications
+API --> Payment : Procesamiento\nPagos
+
+' Notas de flujo
+note right of Frontend
+  SPA - Single Page Application
+  React.js + Axios
+  Manejo de JWT tokens
+  Routing cliente
+end note
+
+note right of API
+  ASP.NET Core Web API
+  Arquitectura por capas
+  Autenticación JWT
+  Autorización por roles
+  Entity Framework Core
+end note
+
+note right of DB
+  Supabase PostgreSQL
+  Persistencia de datos
+  Relaciones y restricciones
+  Backup automático
+end note
+
+note bottom of User
+  Roles:
+  - Administrador
+  - Profesor
+  - Alumno
+  - Padre/Tutor
+end note
+
+legend right
+  |= Color |= Descripción |
+  | <back:#E3F2FD> | Frontend React |
+  | <back:#FFF3E0> | Actores del sistema |
+  | <back:#FFFFFF> | Backend y Base de Datos |
+endlegend
+
+@enduml

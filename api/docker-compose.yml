@@ -1,0 +1,6 @@
+services:
+  apicolegio:
+    image: ${DOCKER_REGISTRY-}apicolegio
+    build:
+      context: .
+      dockerfile: ApiColegio/Dockerfile

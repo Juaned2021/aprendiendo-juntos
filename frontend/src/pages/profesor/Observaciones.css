@@ -1,0 +1,502 @@
+/* Contenedor principal de la página de observaciones */
+.observaciones-page {
+    padding: var(--spacing-lg);
+}
+
+/* Cabecera de la página */
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-lg);
+    padding-bottom: var(--spacing-md);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.page-header h1 {
+    color: var(--text-primary);
+}
+
+/* Botón para crear nueva observación */
+.btn-crear-obs {
+    background-color: var(--success);
+    color: var(--text-light);
+    padding: var(--spacing-sm) var(--spacing-md);
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-size: 0.95rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    box-shadow: var(--shadow-sm);
+}
+
+.btn-crear-obs:hover {
+    background-color: #0d9488;
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+
+/* Estilos para la tabla */
+.admin-table {
+    border-collapse: separate;
+    border-spacing: 0 10px;
+    margin-top: var(--spacing-lg);
+}
+
+.admin-table thead th {
+    background-color: var(--bg-secondary);
+    color: var(--text-secondary);
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    padding: var(--spacing-md);
+    border-bottom: 2px solid var(--border-color);
+}
+
+.admin-table tbody tr {
+    background-color: var(--bg-primary);
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+}
+
+.admin-table tbody tr:hover {
+    transform: translateY(-3px) scale(1.01);
+    box-shadow: var(--shadow-lg);
+    z-index: 10;
+    position: relative;
+}
+
+.admin-table tbody tr.clickable-row {
+    cursor: pointer;
+}
+
+.admin-table tbody td {
+    padding: var(--spacing-md);
+    border: none;
+    vertical-align: middle;
+}
+
+.admin-table .description-cell {
+    max-width: 300px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* --- Estilos para el Modal --- */
+.form-grid {
+    display: grid;
+    gap: 1.25rem;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    align-items: start;
+}
+
+.form-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: flex-end;
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border-color);
+}
+
+.form-actions .btn {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    min-width: 120px;
+}
+
+.form-actions .btn-primary {
+    background-color: var(--primary);
+    color: white;
+}
+
+.form-actions .btn-primary:hover:not(:disabled) {
+    background-color: #2563eb;
+    transform: translateY(-1px);
+}
+
+.form-actions .btn-primary:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.form-actions .btn-secondary {
+    background-color: #6b7280;
+    color: white;
+}
+
+.form-actions .btn-secondary:hover {
+    background-color: #4b5563;
+    transform: translateY(-1px);
+}
+
+.observation-details p {
+    margin: 0.5rem 0;
+}
+
+.observation-details hr {
+    margin: 1rem 0;
+    border-color: var(--border-color);
+}
+
+.btn-submit {
+    background-color: var(--primary);
+    color: var(--text-light);
+    padding: 12px 20px;
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: bold;
+    width: 100%;
+    transition: background-color 0.3s ease;
+}
+
+.btn-submit:hover {
+    background-color: #2563eb;
+}
+
+.btn-submit:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+}
+
+#estudiante-select-modal {
+    width: 100%;
+}
+
+/* Asegurar que el modal esté por encima de todo */
+.modal-overlay {
+    z-index: 9999 !important;
+}
+
+.modal-content {
+    z-index: 10000 !important;
+}
+
+/* --- Estilos para los Filtros --- */
+.filters-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: calc(var(--spacing-sm) + 2px) var(--spacing-md);
+    background-color: var(--bg-secondary);
+    border-radius: calc(var(--border-radius) + 2px);
+    margin-bottom: var(--spacing-lg);
+    box-shadow: var(--shadow-sm);
+}
+
+.filters-container .form-group {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    margin-bottom: 0;
+}
+
+.filters-container .form-group label {
+    font-weight: 500;
+    color: var(--text-secondary);
+    white-space: nowrap;
+}
+
+.filter-search {
+    position: relative;
+    width: 100%;
+    max-width: 450px;
+}
+
+.filter-input {
+    padding-left: calc(var(--spacing-md) + var(--spacing-lg)); /* Espacio para el icono */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%236b7280' viewBox='0 0 16 16'%3E%3Cpath d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: var(--spacing-md) center;
+    background-size: 16px;
+    width: 100%;
+}
+
+/* Grid-specific adjustments for filters container */
+.filters-container.filters-grid {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: var(--spacing-md);
+    align-items: center;
+}
+
+.filters-container.filters-grid .form-group {
+    margin: 0;
+}
+
+.filters-container.filters-grid .form-group:last-child {
+    justify-self: end;
+}
+
+/* Force consistent alignment for labels and controls */
+.filters-container.filters-grid .form-group {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+}
+
+/* Ensure labels and controls are side-by-side in filter row */
+.filters-container.filters-grid .form-group {
+    flex-direction: row;
+}
+
+.filters-container.filters-grid .form-group label {
+    margin-right: 0.5rem;
+}
+
+.filters-container.filters-grid .form-group select {
+    min-width: 100px;
+    max-width: 160px;
+}
+
+.filters-container.filters-grid .form-group label {
+    margin: 0;
+    white-space: nowrap;
+    font-weight: 600;
+    color: var(--text-secondary);
+    align-self: center;
+}
+
+.filters-container.filters-grid input[type="text"],
+.filters-container.filters-grid .filter-input,
+.filters-container.filters-grid select {
+        padding: var(--spacing-sm) var(--spacing-md);
+        height: 40px;
+        box-sizing: border-box;
+        border-radius: var(--border-radius);
+        border: 1px solid var(--border-color);
+        background: white;
+}
+
+/* If a filter is intended to take most space (search), make it span more columns */
+.filters-container.filters-grid .filter-search {
+    grid-column: 1 / 2;
+}
+
+@media (max-width: 768px) {
+    .filters-container.filters-grid .filter-search {
+        grid-column: 1 / -1;
+    }
+    .filters-container.filters-grid .form-group:last-child {
+        justify-self: stretch;
+    }
+    .filters-container.filters-grid .form-group {
+        flex-direction: column;
+        align-items: stretch;
+    }
+}
+
+.description-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  max-width: 200px; /* Ancho fijo para la columna de descripción */
+  min-width: 0;
+  position: relative;
+}
+
+/* Modal sizing improvements */
+.modal-content {
+    width: min(96vw, 760px);
+    max-height: 92vh;
+    overflow-y: auto;
+    padding: calc(var(--spacing-lg) + 4px);
+    border-radius: calc(var(--border-radius) + 2px);
+}
+
+/* Improve visibility of cancel button inside modal */
+.form-actions .btn-secondary {
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+}
+
+@media (max-width: 768px) {
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .filters-container.filters-grid .form-group:last-child {
+        justify-self: stretch;
+    }
+}
+
+.description-text {
+  color: #4b5563;
+  line-height: 1.4;
+  font-size: 0.875rem;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  hyphens: auto;
+  max-width: 100%;
+  overflow: hidden;
+  min-width: 0;
+  /* Altura máxima fija - 2 líneas cuando está contraído */
+  max-height: 3.6em; /* 2 líneas aproximadamente */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2; /* Propiedad estándar para compatibilidad */
+  -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
+  box-sizing: border-box;
+  transition: max-height 0.3s ease;
+}
+
+.description-container.expanded .description-text {
+  max-height: 8em; /* Altura máxima fija cuando está expandido (aprox 5-6 líneas) */
+  overflow-y: auto; /* Scroll interno si el contenido es muy largo */
+  overflow-x: hidden;
+  -webkit-line-clamp: unset;
+  line-clamp: unset; /* Propiedad estándar para compatibilidad */
+  display: block;
+  white-space: pre-wrap; /* Mantiene los saltos de línea */
+  /* Scroll personalizado */
+  scrollbar-width: thin;
+  scrollbar-color: #cbd5e1 #f1f5f9;
+}
+
+.description-container.expanded .description-text::-webkit-scrollbar {
+  width: 4px;
+}
+
+.description-container.expanded .description-text::-webkit-scrollbar-track {
+  background: #f1f5f9;
+  border-radius: 2px;
+}
+
+.description-container.expanded .description-text::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 2px;
+}
+
+.description-container.expanded .description-text::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+.ver-mas-btn-table {
+  background: none;
+  border: none;
+  color: #3b82f6;
+  font-weight: 500;
+  font-size: 0.75rem;
+  cursor: pointer;
+  padding: 0.125rem 0.25rem;
+  text-align: left;
+  transition: color 0.2s ease, text-decoration 0.2s ease;
+  align-self: flex-start;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  hyphens: auto;
+  max-width: 100%;
+  overflow: hidden;
+  min-width: 0;
+  border-radius: 0.25rem;
+  background-color: #f8fafc;
+  border: 1px solid #e2e8f0;
+}
+
+.ver-mas-btn-table:hover {
+  color: #2563eb;
+  text-decoration: underline;
+  background-color: #f1f5f9;
+}
+
+.ver-mas-btn-table:active {
+  transform: scale(0.98);
+}
+
+/* Ajustar ancho de columnas de la tabla */
+.admin-table th:nth-child(2), /* Columna Descripción */
+.admin-table td:nth-child(2) {
+  width: 250px; /* Ancho fijo para la columna de descripción */
+  max-width: 250px;
+  min-width: 200px;
+}
+
+.admin-table th:nth-child(1), /* Columna Encabezado */
+.admin-table td:nth-child(1) {
+  width: 150px;
+  max-width: 150px;
+  min-width: 120px;
+}
+
+.admin-table th:nth-child(3), /* Columna Alumno */
+.admin-table td:nth-child(3) {
+  width: 180px;
+  max-width: 180px;
+  min-width: 150px;
+}
+
+.admin-table th:nth-child(4), /* Columna Fecha */
+.admin-table td:nth-child(4) {
+  width: 100px;
+  max-width: 100px;
+  min-width: 90px;
+}
+
+.admin-table tbody tr {
+  transition: all 0.2s ease;
+  vertical-align: top;
+}
+
+/* Asegurar que las filas no se expandan cuando el contenido se expande */
+.admin-table tbody tr td {
+  vertical-align: top;
+  position: relative;
+}
+
+/* Contenedor de la celda de descripción para mantener altura fija */
+.admin-table tbody tr td:nth-child(2) {
+  height: auto;
+  min-height: 60px; /* Altura mínima para acomodar el contenido */
+  max-height: 120px; /* Altura máxima para evitar expansión */
+  overflow: hidden;
+  position: relative;
+}
+
+.admin-table tbody tr td:nth-child(2).expanded-cell {
+  max-height: 150px; /* Altura cuando está expandido */
+  overflow: visible;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .observaciones-page {
+        padding: var(--spacing-md);
+    }
+    
+    .page-header {
+        flex-direction: column;
+        gap: var(--spacing-md);
+        align-items: stretch;
+    }
+    
+    .admin-table {
+        font-size: 0.9rem;
+    }
+    
+    .admin-table th,
+    .admin-table td {
+        padding: var(--spacing-sm);
+    }
+    
+    .btn-crear-obs {
+        width: 100%;
+        justify-content: center;
+    }
+}

@@ -1,0 +1,343 @@
+@startuml DiagramaComponentes
+!theme plain
+skinparam backgroundColor #F8F9FA
+skinparam componentStyle rectangle
+
+title Diagrama de Componentes - Plataforma Escolar
+note right of title
+  Componentes individuales,
+  interfaces y dependencias
+end note
+
+' ==================== BACKEND .NET ====================
+package "Backend .NET Core" {
+    skinparam rectangle {
+        BackgroundColor #FFF3E0
+        BorderColor #F57C00
+        FontColor #E65100
+    }
+    
+    ' Controllers
+    component "AuthController" as AuthCtrl {
+        [POST /login]
+        [POST /register]
+        [POST /logout]
+        [POST /refresh-token]
+    }
+    
+    component "UserController" as UserCtrl {
+        [GET /users]
+        [GET /users/{id}]
+        [POST /users]
+        [PUT /users/{id}]
+        [DELETE /users/{id}]
+    }
+    
+    component "HorarioController" as HorarioCtrl {
+        [GET /horarios]
+        [GET /horarios/{id}]
+        [POST /horarios]
+        [PUT /horarios/{id}]
+        [DELETE /horarios/{id}]
+    }
+    
+    component "CalificacionController" as CalifCtrl {
+        [GET /calificaciones]
+        [GET /calificaciones/{id}]
+        [POST /calificaciones]
+        [PUT /calificaciones/{id}]
+    }
+    
+    ' Services
+    component "AuthService" as AuthSvc {
+        [ValidateCredentials]
+        [GenerateJWT]
+        [RefreshToken]
+        [RevokeToken]
+    }
+    
+    component "UserService" as UserSvc {
+        [GetAllUsers]
+        [GetUserById]
+        [CreateUser]
+        [UpdateUser]
+        [DeleteUser]
+    }
+    
+    component "HorarioService" as HorarioSvc {
+        [GetAllHorarios]
+        [GetHorarioById]
+        [CreateHorario]
+        [UpdateHorario]
+        [ValidateConflicts]
+    }
+    
+    component "CalificacionService" as CalifSvc {
+        [GetAllCalificaciones]
+        [GetCalificacionById]
+        [CreateCalificacion]
+        [UpdateCalificacion]
+        [CalculatePromedio]
+    }
+    
+    ' Interfaces
+    interface "IUserRepository" as IUserRepo {
+        +GetAllAsync()
+        +GetByIdAsync()
+        +AddAsync()
+        +UpdateAsync()
+        +DeleteAsync()
+    }
+    
+    interface "IHorarioRepository" as IHorarioRepo {
+        +GetAllAsync()
+        +GetByIdAsync()
+        +AddAsync()
+        +UpdateAsync()
+        +DeleteAsync()
+    }
+    
+    interface "ICalificacionRepository" as ICalifRepo {
+        +GetAllAsync()
+        +GetByIdAsync()
+        +AddAsync()
+        +UpdateAsync()
+        +DeleteAsync()
+    }
+    
+    ' Implementations
+    component "UserRepository" as UserRepo {
+        [EF Core Implementation]
+        [SQL Queries]
+        [Entity Mapping]
+    }
+    
+    component "HorarioRepository" as HorarioRepo {
+        [EF Core Implementation]
+        [SQL Queries]
+        [Entity Mapping]
+    }
+    
+    component "CalificacionRepository" as CalifRepo {
+        [EF Core Implementation]
+        [SQL Queries]
+        [Entity Mapping]
+    }
+    
+    ' Supporting Services
+    component "JwtService" as JwtSvc {
+        [GenerateToken]
+        [ValidateToken]
+        [GetClaims]
+        [ConfigureOptions]
+    }
+    
+    component "PasswordHasher" as PassHash {
+        [HashPassword]
+        [VerifyPassword]
+        [BCrypt/Argon2]
+    }
+    
+    component "AppDbContext" as DbContext {
+        [DbSet<User>]
+        [DbSet<Horario>]
+        [DbSet<Calificacion>]
+        [OnModelCreating]
+    }
+    
+    ' DTOs
+    component "DTOs" as DTOs {
+        [LoginDTO]
+        [RegisterDTO]
+        [UserDTO]
+        [HorarioDTO]
+        [CalificacionDTO]
+    }
+    
+    ' Dependencies
+    AuthCtrl ..> AuthSvc : uses
+    AuthCtrl ..> DTOs : validates
+    UserCtrl ..> UserSvc : uses
+    UserCtrl ..> DTOs : validates
+    HorarioCtrl ..> HorarioSvc : uses
+    HorarioCtrl ..> DTOs : validates
+    CalifCtrl ..> CalifSvc : uses
+    CalifCtrl ..> DTOs : validates
+    
+    AuthSvc ..> IUserRepo : depends on
+    AuthSvc ..> JwtSvc : uses
+    AuthSvc ..> PassHash : uses
+    UserSvc ..> IUserRepo : depends on
+    HorarioSvc ..> IHorarioRepo : depends on
+    CalifSvc ..> ICalifRepo : depends on
+    
+    UserRepo ..|> IUserRepo : implements
+    HorarioRepo ..|> IHorarioRepo : implements
+    CalifRepo ..|> ICalifRepo : implements
+    
+    UserRepo ..> DbContext : uses
+    HorarioRepo ..> DbContext : uses
+    CalifRepo ..> DbContext : uses
+}
+
+' ==================== FRONTEND REACT ====================
+package "Frontend React" {
+    skinparam rectangle {
+        BackgroundColor #E3F2FD
+        BorderColor #1976D2
+        FontColor #0D47A1
+    }
+    
+    ' Pages
+    component "LoginPage" as LoginPg {
+        [LoginForm]
+        [Validation]
+        [Error Handling]
+        [Redirect]
+    }
+    
+    component "DashboardPage" as DashPg {
+        [Widgets]
+        [Charts]
+        [Summary Cards]
+        [Quick Actions]
+    }
+    
+    component "HorarioModule" as HorarioMod {
+        [HorarioList]
+        [HorarioDetail]
+        [HorarioForm]
+        [Conflict Detection]
+    }
+    
+    component "CalificacionModule" as CalifMod {
+        [CalificacionList]
+        [CalificacionDetail]
+        [CalificacionForm]
+        [Promedio Calculator]
+    }
+    
+    ' Contexts
+    component "AuthContext" as AuthCtx {
+        [user state]
+        [token state]
+        [login()]
+        [logout()]
+        [refreshToken()]
+    }
+    
+    component "UserContext" as UserCtx {
+        [userData state]
+        [permissions state]
+        [preferences state]
+        [updateUser()]
+    }
+    
+    ' API Client
+    component "APIClient" as APIClient {
+        [axios instance]
+        [request interceptor]
+        [response interceptor]
+        [token manager]
+        [error handler]
+    }
+    
+    ' Route Guards
+    component "ProtectedRoute" as ProtRoute {
+        [check auth]
+        [redirect if not auth]
+        [render children]
+    }
+    
+    component "RoleGuard" as RoleGuard {
+        [check role]
+        [redirect if not authorized]
+        [render children]
+    }
+    
+    ' UI Components
+    component "UI Components" as UIComp {
+        [Button]
+        [Input]
+        [Card]
+        [Modal]
+        [Table]
+        [Form]
+    }
+    
+    ' Dependencies
+    LoginPg ..> AuthCtx : uses
+    LoginPg ..> APIClient : calls
+    LoginPg ..> UIComp : renders
+    
+    DashPg ..> AuthCtx : uses
+    DashPg ..> UserCtx : uses
+    DashPg ..> APIClient : calls
+    DashPg ..> UIComp : renders
+    
+    HorarioMod ..> AuthCtx : uses
+    HorarioMod ..> APIClient : calls
+    HorarioMod ..> UIComp : renders
+    
+    CalifMod ..> AuthCtx : uses
+    CalifMod ..> APIClient : calls
+    CalifMod ..> UIComp : renders
+    
+    ProtRoute ..> AuthCtx : checks
+    RoleGuard ..> AuthCtx : checks
+    RoleGuard ..> UserCtx : checks
+    
+    APIClient ..> AuthCtx : gets token
+}
+
+' ==================== COMMUNICATION ====================
+APIClient --> AuthCtrl : HTTPS
+APIClient --> UserCtrl : HTTPS
+APIClient --> HorarioCtrl : HTTPS
+APIClient --> CalifCtrl : HTTPS
+
+' ==================== NOTES ====================
+note right of AuthCtrl
+  Endpoints de autenticación
+  Valida credenciales
+  Retorna JWT tokens
+end note
+
+note right of AuthSvc
+  Lógica de autenticación
+  Genera y valida tokens
+  Maneja refresh tokens
+end note
+
+note right of IUserRepo
+  Interface para acceso a datos
+  Permite testing con mocks
+  Principio de inversión de dependencias
+end note
+
+note right of JwtSvc
+  Generación de JWT tokens
+  Configuración de claims
+  Validación de firma
+end note
+
+note right of AuthCtx
+  Contexto de autenticación
+  Estado global de auth
+  Provee funciones login/logout
+end note
+
+note right of APIClient
+  Cliente HTTP con Axios
+  Interceptors para tokens
+  Manejo centralizado de errores
+end note
+
+legend right
+  |= Color |= Tipo |
+  | <back:#FFF3E0> | Backend .NET |
+  | <back:#E3F2FD> | Frontend React |
+  | <back:#FFFFFF> | Interfaces |
+endlegend
+
+@enduml

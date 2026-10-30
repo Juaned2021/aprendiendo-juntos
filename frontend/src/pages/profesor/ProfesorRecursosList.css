@@ -1,0 +1,263 @@
+/* Contenedor principal de la lista de recursos del profesor */
+.profesor-recursos-list-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Controles de búsqueda y paginación */
+.recursos-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.5rem;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  border: 1px solid #e5e7eb;
+  margin-bottom: 0.5rem;
+}
+
+.search-filter-group {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex: 1;
+}
+
+.search-container {
+  flex: 1;
+  max-width: 400px;
+}
+
+.search-input {
+  width: 100%;
+  padding: var(--spacing-sm) var(--spacing-md);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  font-size: 0.95rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  background: white;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: var(--primary);
+  background: white;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+}
+
+.items-per-page-select {
+  padding: var(--spacing-sm) var(--spacing-md);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  font-size: 0.95rem;
+  background: white;
+  cursor: pointer;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.items-per-page-select:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+}
+
+.items-per-page-container {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.results-info {
+  color: #64748b;
+  font-size: 0.9rem;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.recursos-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.2rem;
+  margin-top: 2rem;
+}
+
+.recurso-item {
+  background: linear-gradient(180deg, #ffffff, #fbfdff);
+  border-radius: 10px;
+  padding: 1rem;
+  box-shadow: 0 6px 18px rgba(14, 30, 37, 0.06);
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.recurso-item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 30px rgba(14, 30, 37, 0.09);
+}
+
+/* Ocultar el tipo de recurso si llega a mostrarse en alguna variante */
+.recurso-tipo,
+.recurso-item .recurso-tipo {
+  display: none !important;
+}
+
+.recurso-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.recurso-thumb {
+  width: 56px;
+  height: 56px;
+  object-fit: cover;
+  border-radius: 6px;
+  border: 1px solid #e0e0e0;
+  background: #fff;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+}
+
+.recurso-pdf-icon, .recurso-file-icon {
+  font-size: 2.2rem;
+  color: #e57300;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  background: #fff7e6;
+  border-radius: 6px;
+  border: 1px solid #ffe0b2;
+}
+
+.recurso-nombre a {
+  color: var(--primary);
+  font-weight: 700;
+  text-decoration: none;
+  font-size: 1.05rem;
+}
+
+.recurso-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.recurso-desc {
+  color: #334155;
+  font-size: 0.98rem;
+}
+
+.recurso-meta {
+  font-size: 0.9rem;
+  color: #64748b;
+  display: flex;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.recurso-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-left: auto;
+}
+
+.recurso-download {
+  background: linear-gradient(180deg,var(--primary),#174ea6);
+  color: #fff;
+  padding: 0.45rem 0.9rem;
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 600;
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+
+.recurso-download:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(14,30,37,0.08);
+}
+.recurso-download:hover {
+  background: #174ea6;
+}
+
+.recursos-list-vacio {
+  color: #b0b0b0;
+  margin: 2rem 0;
+  text-align: center;
+  padding: 2rem;
+  background: #f8fafc;
+  border-radius: 8px;
+  border: 2px dashed #e5e7eb;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .recursos-controls {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+  }
+  
+  .search-filter-group {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .search-container {
+    max-width: none;
+  }
+  
+  .results-info {
+    text-align: center;
+    white-space: normal;
+  }
+  
+  .recurso-meta {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+  
+  .recurso-download {
+    margin-left: 0;
+    margin-top: 0.5rem;
+  }
+}
+
+/* Desktop: show cards in grid */
+@media (min-width: 900px) {
+  .recursos-list {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+
+  .recurso-item {
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 1rem 1.2rem;
+  }
+
+  .recurso-header {
+    flex: 0 0 56px;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .recurso-body {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .recurso-actions {
+    margin-left: 1rem;
+  }
+}

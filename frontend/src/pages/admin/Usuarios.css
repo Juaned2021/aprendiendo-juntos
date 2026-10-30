@@ -1,0 +1,280 @@
+.usuarios-container {
+  padding: var(--spacing-lg);
+}
+
+.usuarios-container h1 {
+  margin-bottom: var(--spacing-xl);
+}
+
+.usuarios-form {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: var(--spacing-lg);
+  margin-bottom: var(--spacing-xl);
+}
+
+.usuarios-form input,
+.usuarios-form select {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.btn-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.6rem;
+  border: none;
+  border-radius: 0.5rem;
+  background-color: #f3f4f6;
+  color: #374151;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.btn-icon:hover {
+  background-color: #e5e7eb;
+  transform: translateY(-1px);
+}
+
+.btn-icon.btn-danger {
+  background-color: #fee2e2;
+  color: #b91c1c;
+}
+
+.btn-icon.btn-danger:hover {
+  background-color: #fecaca;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.form-group label {
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.form-group input,
+.form-group select {
+  padding: var(--spacing-md);
+  border: 2px solid var(--border-color);
+  border-radius: var(--border-radius);
+  font-size: 1rem;
+  transition: all 0.3s;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.form-actions {
+  grid-column: 1 / -1;
+  display: flex;
+  gap: var(--spacing-md);
+  justify-content: flex-end;
+}
+
+.form-actions button,
+.form-actions .btn {
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+.usuarios-lista {
+  margin-top: var(--spacing-xl);
+}
+
+.usuarios-lista .card {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+
+
+.table-actions {
+  display: flex;
+  gap: var(--spacing-sm);
+}
+
+.table-actions .btn-icon {
+  background-color: #f3f4f6;
+  color: #374151;
+  transition: all 0.2s ease;
+}
+
+.table-actions .btn-icon:hover {
+  background-color: #e5e7eb;
+  color: #1f2937;
+}
+
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--spacing-sm);
+  margin-top: var(--spacing-lg);
+}
+
+.pagination-container button {
+  background-color: var(--primary);
+  color: var(--text-light);
+  border: none;
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.pagination-container button:disabled {
+  background-color: var(--bg-secondary);
+  color: var(--text-secondary);
+  cursor: not-allowed;
+}
+
+.pagination-container span {
+  font-weight: 500;
+  padding: 0 var(--spacing-md);
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: var(--spacing-md);
+  z-index: 1000;
+}
+
+.modal-content {
+  width: min(95vw, 720px);
+  max-height: 95vh;
+  overflow-y: auto;
+  animation: fadeIn 0.3s ease-in;
+  background-color: var(--bg-surface);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-xl);
+  padding: var(--spacing-lg);
+}
+
+.modal-content h2 {
+  margin-bottom: var(--spacing-lg);
+  font-size: 1.5rem;
+}
+
+.modal-content button.btn-danger {
+  background-color: var(--danger) !important;
+  color: var(--text-light) !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  border: none !important;
+  box-shadow: none;
+}
+
+.modal-content button.btn-danger:hover {
+  background-color: #b91c1c !important;
+}
+
+.modal-content .usuarios-form {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: var(--spacing-lg);
+}
+
+.modal-content .form-group input,
+.modal-content .form-group select {
+  width: 100%;
+}
+
+.modal-content .form-actions {
+  justify-content: flex-end;
+  flex-wrap: wrap;
+}
+
+.modal-content .form-actions button {
+  min-width: 140px;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0.3;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Responsive Styles */
+@media screen and (max-width: 768px) {
+  .usuarios-form {
+    grid-template-columns: 1fr;
+  }
+  
+  .filtros-usuarios {
+    flex-direction: column;
+  }
+  
+  .busqueda-input {
+    min-width: 100%;
+  }
+
+  .usuarios-lista .card {
+    background-color: transparent;
+    padding: 0;
+    box-shadow: none;
+    border: none;
+  }
+
+  .modal-content {
+    width: 100%;
+    padding: var(--spacing-md);
+  }
+
+  .modal-content .usuarios-form {
+    grid-template-columns: 1fr;
+  }
+
+  .modal-content .form-actions {
+    justify-content: stretch;
+  }
+
+  .modal-content .form-actions button {
+    width: 100%;
+  }
+
+  .paginacion {
+    flex-direction: column;
+    gap: 1rem;
+  }
+}
+
+.estado-usuario {
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--border-radius-full);
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 0.5px;
+}
+
+.estado-usuario.activo {
+  background-color: var(--success-light);
+  color: var(--success-dark);
+}
+
+.estado-usuario.inactivo {
+  background-color: var(--danger-light);
+  color: var(--danger-dark);
+}

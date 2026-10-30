@@ -1,0 +1,308 @@
+.filters-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+}
+
+@media (min-width: 768px) {
+    .filters-grid {
+        grid-template-columns: 2fr 1fr 1fr;
+        align-items: end;
+    }
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.form-group label {
+    font-weight: 500;
+}
+
+.form-group input,
+.form-group select {
+    padding: 0.75rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 100%;
+}
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.admin-table th,
+.admin-table td {
+  padding: 1rem;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+}
+
+.admin-table th {
+  background-color: #f7fafc;
+  font-weight: 600;
+}
+
+.admin-table tr:hover {
+  background-color: #f1f5f9;
+}
+
+/* Estilos para los estados de observación */
+.status {
+  padding: 0.25rem 0.5rem;
+  border-radius: var(--border-radius);
+  color: black;
+  font-weight: 600;
+  text-transform: capitalize;
+  font-size: 0.875rem;
+}
+
+.status-activo {
+  background-color: var(--success-color);
+}
+
+.status-inactivo {
+  background-color: var(--danger-color);
+}
+
+.status-eliminado {
+  background-color: var(--danger-color);
+}
+
+/* Botones de acción */
+.btn-icon {
+  background-color: #f3f4f6;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 0.375rem;
+  transition: all 0.2s ease;
+  color: #374151;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-icon:hover {
+  background-color: #e5e7eb;
+  color: #1f2937;
+}
+
+.btn-icon.btn-danger {
+  color: #dc2626;
+}
+
+.btn-icon.btn-danger:hover {
+  background-color: #fef2f2;
+  color: #b91c1c;
+}
+
+.btn-icon:first-child {
+  margin-right: 0.5rem;
+}
+
+/* Estilos para descripción con "ver más/menos" en la tabla */
+.description-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  max-width: 200px; /* Ancho fijo para la columna de descripción */
+  min-width: 0;
+  position: relative;
+}
+
+.description-text {
+  color: #4b5563;
+  line-height: 1.4;
+  font-size: 0.875rem;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  hyphens: auto;
+  max-width: 100%;
+  overflow: hidden;
+  min-width: 0;
+  /* Altura máxima fija - 2 líneas cuando está contraído */
+  max-height: 3.6em; /* 2 líneas aproximadamente */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2; /* Propiedad estándar para compatibilidad */
+  -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
+  box-sizing: border-box;
+  transition: max-height 0.3s ease;
+}
+
+.description-container.expanded .description-text {
+  max-height: 8em; /* Altura máxima fija cuando está expandido (aprox 5-6 líneas) */
+  overflow-y: auto; /* Scroll interno si el contenido es muy largo */
+  overflow-x: hidden;
+  -webkit-line-clamp: unset;
+  line-clamp: unset; /* Propiedad estándar para compatibilidad */
+  display: block;
+  white-space: pre-wrap; /* Mantiene los saltos de línea */
+  /* Scroll personalizado */
+  scrollbar-width: thin;
+  scrollbar-color: #cbd5e1 #f1f5f9;
+}
+
+.description-container.expanded .description-text::-webkit-scrollbar {
+  width: 4px;
+}
+
+.description-container.expanded .description-text::-webkit-scrollbar-track {
+  background: #f1f5f9;
+  border-radius: 2px;
+}
+
+.description-container.expanded .description-text::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 2px;
+}
+
+.description-container.expanded .description-text::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+.ver-mas-btn-table {
+  background: none;
+  border: none;
+  color: #3b82f6;
+  font-weight: 500;
+  font-size: 0.75rem;
+  cursor: pointer;
+  padding: 0.125rem 0.25rem;
+  text-align: left;
+  transition: color 0.2s ease, text-decoration 0.2s ease;
+  align-self: flex-start;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  hyphens: auto;
+  max-width: 100%;
+  overflow: hidden;
+  min-width: 0;
+  border-radius: 0.25rem;
+  background-color: #f8fafc;
+  border: 1px solid #e2e8f0;
+}
+
+.ver-mas-btn-table:hover {
+  color: #2563eb;
+  text-decoration: underline;
+  background-color: #f1f5f9;
+}
+
+.ver-mas-btn-table:active {
+  transform: scale(0.98);
+}
+
+/* Ajustar ancho de columnas de la tabla */
+.admin-table th:nth-child(5), /* Columna Descripción */
+.admin-table td:nth-child(5) {
+  width: 250px; /* Ancho fijo para la columna de descripción */
+  max-width: 250px;
+  min-width: 200px;
+}
+
+.admin-table th:nth-child(4), /* Columna Encabezado */
+.admin-table td:nth-child(4) {
+  width: 150px;
+  max-width: 150px;
+  min-width: 120px;
+}
+
+.admin-table th:nth-child(3), /* Columna Profesor */
+.admin-table td:nth-child(3) {
+  width: 150px;
+  max-width: 150px;
+  min-width: 120px;
+}
+
+.admin-table th:nth-child(2), /* Columna Alumno */
+.admin-table td:nth-child(2) {
+  width: 180px;
+  max-width: 180px;
+  min-width: 150px;
+}
+
+.admin-table th:nth-child(1), /* Columna ID */
+.admin-table td:nth-child(1) {
+  width: 60px;
+  max-width: 60px;
+  min-width: 50px;
+}
+
+.admin-table th:nth-child(6), /* Columna Fecha */
+.admin-table td:nth-child(6) {
+  width: 100px;
+  max-width: 100px;
+  min-width: 90px;
+}
+
+.admin-table th:nth-child(7), /* Columna Estado */
+.admin-table td:nth-child(7) {
+  width: 90px;
+  max-width: 90px;
+  min-width: 80px;
+}
+
+.admin-table th:nth-child(8), /* Columna Acciones */
+.admin-table td:nth-child(8) {
+  width: 120px;
+  max-width: 120px;
+  min-width: 100px;
+}
+
+.admin-table tbody tr {
+  transition: all 0.2s ease;
+  vertical-align: top;
+}
+
+/* Asegurar que las filas no se expandan cuando el contenido se expande */
+.admin-table tbody tr td {
+  vertical-align: top;
+  position: relative;
+}
+
+/* Contenedor de la celda de descripción para mantener altura fija */
+.admin-table tbody tr td:nth-child(5) {
+  height: auto;
+  min-height: 60px; /* Altura mínima para acomodar el contenido */
+  max-height: 120px; /* Altura máxima para evitar expansión */
+  overflow: hidden;
+  position: relative;
+}
+
+.admin-table tbody tr td:nth-child(5).expanded-cell {
+  max-height: 150px; /* Altura cuando está expandido */
+  overflow: visible;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .filters-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .admin-table {
+        font-size: 0.9rem;
+    }
+    
+    .admin-table th,
+    .admin-table td {
+        padding: 0.5rem;
+    }
+    
+    .btn-icon {
+        padding: 0.25rem;
+        font-size: 0.875rem;
+    }
+}
+
+

@@ -1,0 +1,201 @@
+@startuml DiagramaER
+!theme plain
+skinparam backgroundColor #F8F9FA
+skinparam entity {
+    BackgroundColor #FFFFFF
+    BorderColor #333333
+    FontColor #000000
+}
+
+title Diagrama Entidad-Relación - Base de Datos
+note right of title
+  Estructura de base de datos,
+  tablas, relaciones y restricciones
+end note
+
+' ==================== TABLA USUARIOS ====================
+entity "usuarios" as usuarios {
+    *id : UUID <<PK>>
+    --
+    *email : VARCHAR(255) <<UNIQUE>>
+    *password_hash : VARCHAR(255)
+    *nombre : VARCHAR(100)
+    *apellido : VARCHAR(100)
+    *rol_id : INTEGER <<FK>>
+    activo : BOOLEAN <<DEFAULT: true>>
+    ultimo_login : TIMESTAMP
+    created_at : TIMESTAMP <<DEFAULT: NOW()>>
+    updated_at : TIMESTAMP <<DEFAULT: NOW()>>
+}
+
+' ==================== TABLA ROLES ====================
+entity "roles" as roles {
+    *id : INTEGER <<PK>>
+    --
+    *nombre : VARCHAR(50) <<UNIQUE>>
+    descripcion : VARCHAR(255)
+    created_at : TIMESTAMP <<DEFAULT: NOW()>>
+    updated_at : TIMESTAMP <<DEFAULT: NOW()>>
+}
+
+' ==================== TABLA PERMISOS ====================
+entity "permisos" as permisos {
+    *id : INTEGER <<PK>>
+    --
+    *nombre : VARCHAR(100) <<UNIQUE>>
+    *modulo : VARCHAR(50)
+    descripcion : VARCHAR(255)
+    created_at : TIMESTAMP <<DEFAULT: NOW()>>
+}
+
+' ==================== TABLA ROLES_PERMISOS ====================
+entity "roles_permisos" as roles_permisos {
+    *rol_id : INTEGER <<FK>>
+    *permiso_id : INTEGER <<FK>>
+    --
+    created_at : TIMESTAMP <<DEFAULT: NOW()>>
+}
+
+' ==================== TABLA HORARIOS ====================
+entity "horarios" as horarios {
+    *id : UUID <<PK>>
+    --
+    *asignatura : VARCHAR(100)
+    *fecha_inicio : TIMESTAMP
+    *fecha_fin : TIMESTAMP
+    *dia_semana : VARCHAR(20)
+    *salon : VARCHAR(50)
+    *profesor_id : UUID <<FK>>
+    *asignatura_id : INTEGER <<FK>>
+    created_at : TIMESTAMP <<DEFAULT: NOW()>>
+    updated_at : TIMESTAMP <<DEFAULT: NOW()>>
+}
+
+' ==================== TABLA ASIGNATURAS ====================
+entity "asignaturas" as asignaturas {
+    *id : INTEGER <<PK>>
+    --
+    *nombre : VARCHAR(100)
+    *codigo : VARCHAR(20) <<UNIQUE>>
+    *creditos : INTEGER <<DEFAULT: 0>>
+    *categoria_id : INTEGER <<FK>>
+    descripcion : TEXT
+    created_at : TIMESTAMP <<DEFAULT: NOW()>>
+    updated_at : TIMESTAMP <<DEFAULT: NOW()>>
+}
+
+' ==================== TABLA CATEGORIAS ====================
+entity "categorias" as categorias {
+    *id : INTEGER <<PK>>
+    --
+    *nombre : VARCHAR(100)
+    descripcion : VARCHAR(255)
+    created_at : TIMESTAMP <<DEFAULT: NOW()>>
+}
+
+' ==================== TABLA CALIFICACIONES ====================
+entity "calificaciones" as calificaciones {
+    *id : UUID <<PK>>
+    --
+    *nota : DECIMAL(5,2) <<CHECK: 0-10>>
+    *periodo : VARCHAR(50)
+    *alumno_id : UUID <<FK>>
+    *asignatura_id : INTEGER <<FK>>
+    *periodo_id : INTEGER <<FK>>
+    observaciones : TEXT
+    created_at : TIMESTAMP <<DEFAULT: NOW()>>
+    updated_at : TIMESTAMP <<DEFAULT: NOW()>>
+}
+
+' ==================== TABLA PERIODOS ====================
+entity "periodos" as periodos {
+    *id : INTEGER <<PK>>
+    --
+    *nombre : VARCHAR(50) <<UNIQUE>>
+    *fecha_inicio : DATE
+    *fecha_fin : DATE
+    activo : BOOLEAN <<DEFAULT: true>>
+    created_at : TIMESTAMP <<DEFAULT: NOW()>>
+}
+
+' ==================== TABLA REFRESH_TOKENS ====================
+entity "refresh_tokens" as refresh_tokens {
+    *id : UUID <<PK>>
+    --
+    *token : VARCHAR(500) <<UNIQUE>>
+    *usuario_id : UUID <<FK>>
+    *expira_en : TIMESTAMP
+    revocado : BOOLEAN <<DEFAULT: false>>
+    creado_en : TIMESTAMP <<DEFAULT: NOW()>>
+}
+
+' ==================== TABLA AUDITORIA ====================
+entity "auditoria" as auditoria {
+    *id : UUID <<PK>>
+    --
+    *usuario_id : UUID <<FK>>
+    *accion : VARCHAR(20)
+    *tabla : VARCHAR(50)
+    *registro_id : UUID
+    valor_anterior : JSONB
+    valor_nuevo : JSONB
+    *timestamp : TIMESTAMP <<DEFAULT: NOW()>>
+}
+
+' ==================== RELACIONES ====================
+usuarios }o--|| roles : "tiene"
+roles ||--o{ roles_permisos : "tiene"
+permisos ||--o{ roles_permisos : "tiene"
+usuarios ||--o{ horarios : "profesor de"
+asignaturas ||--o{ horarios : "asignatura de"
+categorias ||--o{ asignaturas : "categoría de"
+usuarios ||--o{ calificaciones : "alumno de"
+asignaturas ||--o{ calificaciones : "asignatura de"
+periodos ||--o{ calificaciones : "periodo de"
+usuarios ||--o{ refresh_tokens : "tiene"
+usuarios ||--o{ auditoria : "realiza"
+
+' ==================== NOTAS ====================
+note right of usuarios
+  PK: UUID para seguridad
+  Email único
+  Password encriptado con BCrypt
+  Relación con roles
+end note
+
+note right of roles_permisos
+  Tabla intermedia
+  Relación muchos-a-muchos
+  entre roles y permisos
+end note
+
+note right of calificaciones
+  Nota entre 0 y 10
+  Relación con alumno y asignatura
+  Check constraint en nota
+end note
+
+note right of refresh_tokens
+  Tokens únicos
+  Expiración configurable
+  Para refresh de JWT
+end note
+
+note right of auditoria
+  Registro de todos los cambios
+  Trigger automático
+  Valores en JSONB
+end note
+
+legend right
+  |= Símbolo |= Significado |
+  | <<PK>> | Primary Key |
+  | <<FK>> | Foreign Key |
+  | <<UNIQUE>> | Índice único |
+  | <<CHECK>> | Restricción check |
+  | ||--o{ | One-to-Many |
+  | }o--|| | Many-to-One |
+  | ||--o{ | Many-to-Many |
+endlegend
+
+@enduml

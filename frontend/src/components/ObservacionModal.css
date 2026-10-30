@@ -1,0 +1,355 @@
+/* Modal de Observación con Ver Más/Menos */
+.observacion-modal {
+  max-width: 680px;
+  width: 96%;
+  max-height: 92vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  border-radius: 12px;
+  background: linear-gradient(180deg, #ffffff, #fbfdff);
+  /* Forzar contención estricta */
+  contain: layout;
+  contain: paint;
+  box-shadow: 0 12px 40px rgba(2,6,23,0.15);
+  animation: modalFadeIn 220ms ease-out;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid rgba(14,30,37,0.06);
+  background: linear-gradient(90deg, rgba(249,250,251,0.6), rgba(255,255,255,0.6));
+  flex-shrink: 0;
+  min-width: 0; /* Importante para flexbox */
+  /* Forzar contención */
+  overflow: hidden;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.modal-header h2 {
+  margin: 0;
+  color: #0f172a;
+  font-size: 1.25rem;
+  font-weight: 700;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  hyphens: auto;
+  max-width: 100%;
+  overflow: hidden;
+  min-width: 0;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  box-sizing: border-box;
+  display: block;
+}
+
+.modal-close {
+  background: #f8fafc;
+  border: 1px solid rgba(2,6,23,0.06);
+  font-size: 1.1rem;
+  cursor: pointer;
+  color: #374151;
+  padding: 0.4rem 0.55rem;
+  border-radius: 8px;
+  transition: transform 0.12s ease, background 0.12s ease, box-shadow 0.12s ease;
+  flex-shrink: 0;
+  min-width: auto;
+  width: auto;
+}
+
+.modal-close:hover {
+  background: #eef2ff;
+  color: #0f172a;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(2,6,23,0.08);
+}
+
+.modal-body {
+  padding: 1.25rem 1.5rem;
+  min-height: 0;
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  min-width: 0; /* Importante para flexbox */
+  width: 100%;
+  box-sizing: border-box;
+  contain: layout;
+}
+
+.modal-footer {
+  padding: 0.9rem 1.25rem;
+  border-top: 1px solid rgba(14,30,37,0.05);
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  flex-shrink: 0;
+  min-width: 0; /* Importante para flexbox */
+  overflow: hidden;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.observation-details {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  min-width: 0; /* Importante para flexbox */
+  /* Forzar contención */
+  width: 100%;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.detail-row {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: 0.5rem 1rem;
+  min-width: 0; /* Importante para flexbox */
+  /* Forzar contención */
+  width: 100%;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.detail-label {
+  font-weight: 600;
+  color: #374151;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  hyphens: auto;
+  max-width: 100%;
+  overflow: hidden;
+  min-width: 0;
+  /* Forzar contención */
+  box-sizing: border-box;
+  display: block;
+}
+
+.detail-value {
+  color: #1f2937;
+  font-size: 1rem;
+  line-height: 1.5;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  hyphens: auto;
+  max-width: 100%;
+  overflow: auto;
+  min-width: 0; /* Importante para flexbox */
+  /* Forzar contención */
+  box-sizing: border-box;
+  display: block;
+}
+
+.description-row {
+  gap: 0.75rem;
+  min-width: 0; /* Importante para flexbox */
+  /* Forzar contención */
+  width: 100%;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.description-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-width: 0; /* Importante para flexbox */
+  /* Forzar contención */
+  width: 100%;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.description-text {
+  margin: 0;
+  color: #4b5563;
+  line-height: 1.6;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  hyphens: auto;
+  white-space: pre-wrap;
+  max-width: 100%;
+  overflow: hidden;
+  min-width: 0; /* Importante para flexbox */
+  /* Truncamiento extremo para palabras muy largas */
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: unset;
+  -webkit-box-orient: vertical;
+  /* Forzar contención */
+  box-sizing: border-box;
+  contain: layout;
+}
+
+.ver-mas-btn {
+  background: none;
+  border: none;
+  color: #3b82f6;
+  font-weight: 500;
+  font-size: 0.875rem;
+  cursor: pointer;
+  padding: 0.25rem 0;
+  text-align: left;
+  transition: color 0.2s ease;
+  align-self: flex-start;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  hyphens: auto;
+  max-width: 100%;
+  overflow: hidden;
+  min-width: 0; /* Importante para flexbox */
+  /* Forzar contención */
+  box-sizing: border-box;
+  display: inline-block;
+}
+
+.ver-mas-btn:hover {
+  color: #2563eb;
+  text-decoration: underline;
+}
+
+/* Footer buttons styling */
+.modal-footer .btn {
+  padding: 0.55rem 1rem;
+  border-radius: 8px;
+  font-weight: 600;
+}
+
+.modal-footer .btn-secondary {
+  background: #f3f4f6;
+  color: #0f172a;
+  border: 1px solid rgba(2,6,23,0.04);
+}
+
+.modal-footer .btn-secondary:hover {
+  transform: translateY(-2px);
+}
+
+.modal-footer .btn-primary {
+  background: linear-gradient(180deg,var(--primary),#174ea6);
+  color: white;
+  border: none;
+}
+
+@keyframes modalFadeIn {
+  from { opacity: 0; transform: translateY(8px) scale(0.995); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* Contenedor principal para evitar overflow */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1rem;
+  overflow: hidden;
+  /* Forzar contención */
+  box-sizing: border-box;
+}
+
+.modal-content {
+  background: white;
+  border-radius: 0.5rem;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  max-height: 90vh;
+  max-width: 600px;
+  width: 90%;
+  overflow: hidden;
+  min-width: 0; /* Importante para flexbox */
+  /* Forzar contención estricta */
+  contain: layout;
+  contain: paint;
+  contain: size;
+  box-sizing: border-box;
+  /* Prevenir expansión */
+  position: relative;
+}
+
+/* Forzar truncamiento de palabras extremadamente largas - MÁS AGRESIVO */
+.description-text,
+.detail-value,
+.detail-label,
+.ver-mas-btn,
+.modal-header h2 {
+  /* Para navegadores modernos - la solución más fuerte */
+  overflow-wrap: anywhere !important;
+  word-break: break-word !important;
+  
+  /* Para compatibilidad */
+  word-wrap: break-word !important;
+  overflow-wrap: break-word !important;
+  hyphens: auto !important;
+  
+  /* Prevenir desbordamiento */
+  max-width: 100% !important;
+  overflow: hidden !important;
+  min-width: 0 !important;
+  
+  /* Forzar contención */
+  display: block !important;
+  box-sizing: border-box !important;
+  
+  /* Truncamiento extremo para palabras muy largas */
+  text-overflow: ellipsis !important;
+  white-space: pre-wrap !important;
+  
+  /* Contención estricta */
+  contain: layout !important;
+  contain: paint !important;
+}
+
+/* Para el título del modal - nowrap para evitar múltiples líneas */
+.modal-header h2 {
+  white-space: nowrap !important;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .observacion-modal {
+    width: 95%;
+    margin: 1rem;
+    max-height: 95vh;
+  }
+  
+  .modal-header,
+  .modal-body,
+  .modal-footer {
+    padding: 1rem;
+  }
+  
+  .modal-header h2 {
+    font-size: 1.25rem;
+  }
+  
+  .detail-value {
+    font-size: 0.9rem;
+  }
+  
+  .modal-overlay {
+    padding: 0.5rem;
+  }
+  
+  .modal-content {
+    width: 95%;
+    max-width: none;
+    /* Forzar contención en móvil */
+    contain: layout !important;
+    contain: paint !important;
+  }
+}

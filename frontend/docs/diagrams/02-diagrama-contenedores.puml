@@ -1,0 +1,260 @@
+@startuml DiagramaContenedores
+!theme plain
+skinparam backgroundColor #F8F9FA
+skinparam componentStyle rectangle
+
+title Diagrama de Contenedores - Plataforma Escolar
+note right of title
+  Estructura interna de cada componente
+  principal del sistema
+end note
+
+' ==================== FRONTEND REACT ====================
+package "Frontend React Application" <<Container>> {
+    skinparam rectangle {
+        BackgroundColor #E3F2FD
+        BorderColor #1976D2
+        FontColor #0D47A1
+    }
+    
+    component "UI Components" as UI {
+        [Button]
+        [Input]
+        [Card]
+        [Modal]
+        [Table]
+        [Form]
+    }
+    
+    component "Pages/Views" as Pages {
+        [LoginPage]
+        [DashboardPage]
+        [HorarioPage]
+        [CalificacionesPage]
+        [PerfilPage]
+    }
+    
+    component "Services API" as APIClient {
+        [Axios Instance]
+        [Interceptors]
+        [Token Manager]
+        [Error Handler]
+    }
+    
+    component "State Management" as State {
+        [AuthContext]
+        [UserContext]
+        [ThemeContext]
+        [NotificationContext]
+    }
+    
+    component "Routing" as Routing {
+        [React Router]
+        [Protected Routes]
+        [Public Routes]
+        [Route Guards]
+    }
+    
+    component "Custom Hooks" as Hooks {
+        [useAuth]
+        [useAPI]
+        [useForm]
+        [useLocalStorage]
+    }
+    
+    component "Utils" as Utils {
+        [Date Formatters]
+        [Validators]
+        [Currency Formatters]
+        [Constants]
+    }
+    
+    Pages --> UI : Usa
+    Pages --> APIClient : Llama
+    Pages --> State : Consume
+    Pages --> Routing : Navega
+    Pages --> Hooks : Utiliza
+    Pages --> Utils : Importa
+    APIClient --> State : Actualiza
+}
+
+' ==================== API .NET ====================
+package "API .NET Core" <<Container>> {
+    skinparam rectangle {
+        BackgroundColor #FFF3E0
+        BorderColor #F57C00
+        FontColor #E65100
+    }
+    
+    component "Controllers" as Controllers {
+        [AuthController]
+        [UserController]
+        [HorarioController]
+        [CalificacionController]
+        [AsignaturaController]
+    }
+    
+    component "Services" as Services {
+        [AuthService]
+        [UserService]
+        [HorarioService]
+        [CalificacionService]
+        [AsignaturaService]
+    }
+    
+    component "Repositories" as Repositories {
+        [UserRepository]
+        [HorarioRepository]
+        [CalificacionRepository]
+        [AsignaturaRepository]
+    }
+    
+    component "DTOs" as DTOs {
+        [LoginDTO]
+        [RegisterDTO]
+        [UserDTO]
+        [HorarioDTO]
+        [CalificacionDTO]
+    }
+    
+    component "Middleware" as Middleware {
+        [JWT Authentication]
+        [CORS Middleware]
+        [Logging Middleware]
+        [Exception Handler]
+    }
+    
+    component "DbContext" as DbContext {
+        [AppDbContext]
+        [Entity Configurations]
+        [Migrations]
+    }
+    
+    component "Validators" as Validators {
+        [LoginValidator]
+        [RegisterValidator]
+        [UserValidator]
+    }
+    
+    component "Configuration" as Config {
+        [appsettings.json]
+        [JWT Settings]
+        [Connection Strings]
+    }
+    
+    Controllers --> Services : Inyecta
+    Controllers --> DTOs : Valida
+    Controllers --> Validators : Usa
+    Services --> Repositories : Llama
+    Repositories --> DbContext : Accede
+    Middleware --> Controllers : Procesa
+    Config --> Services : Configura
+}
+
+' ==================== SUPABASE ====================
+package "Supabase PostgreSQL" <<Container>> {
+    skinparam rectangle {
+        BackgroundColor #E8F5E9
+        BorderColor #388E3C
+        FontColor #1B5E20
+    }
+    
+    database "PostgreSQL Engine" as PG {
+        [Query Optimizer]
+        [Transaction Manager]
+        [Connection Pool]
+    }
+    
+    database "Tables" as Tables {
+        [usuarios]
+        [roles]
+        [horarios]
+        [calificaciones]
+        [asignaturas]
+        [categorias]
+        [refresh_tokens]
+    }
+    
+    database "Indexes" as Indexes {
+        [Primary Keys]
+        [Foreign Keys]
+        [Unique Indexes]
+        [Composite Indexes]
+    }
+    
+    database "Triggers" as Triggers {
+        [updated_at]
+        [created_at]
+        [audit_log]
+    }
+    
+    database "Stored Procedures" as Procedures {
+        [sp_get_horario_usuario]
+        [sp_get_promedio]
+        [sp_get_asistencia]
+    }
+    
+    database "Views" as Views {
+        [vw_horario_completo]
+        [vw_calificaciones_resumen]
+        [vw_estadisticas]
+    }
+    
+    database "Row Level Security" as RLS {
+        [User Isolation]
+        [Role Based Access]
+        [Tenant Isolation]
+    }
+    
+    PG --> Tables : Administra
+    Tables --> Indexes : Tiene
+    Tables --> Triggers : Dispara
+    Procedures --> Tables : Consulta
+    Views --> Tables : Proyecta
+    RLS --> Tables : Protege
+}
+
+' ==================== COMUNICACIÓN ENTRE CONTENEDORES ====================
+APIClient --> Controllers : HTTPS/REST
+DbContext --> PG : PostgreSQL
+Repositories --> Tables : EF Core
+
+' ==================== NOTAS ====================
+note right of UI
+  Componentes atómicos
+  reutilizables con
+  estilos consistentes
+end note
+
+note right of Controllers
+  Endpoints RESTful
+  Validación de DTOs
+  Retornan IActionResult
+end note
+
+note right of Services
+  Lógica de negocio
+  Reglas del dominio
+  Orquestación de repos
+end note
+
+note right of Repositories
+  Pattern Repository
+  Abstracción de EF Core
+  CRUD genérico
+end note
+
+note right of RLS
+  Seguridad a nivel de fila
+  Políticas de Supabase
+  Aislamiento de datos
+end note
+
+legend right
+  |= Color |= Contenedor |
+  | <back:#E3F2FD> | Frontend React |
+  | <back:#FFF3E0> | API .NET Core |
+  | <back:#E8F5E9> | Supabase PostgreSQL |
+endlegend
+
+@enduml

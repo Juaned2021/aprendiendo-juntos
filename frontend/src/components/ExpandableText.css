@@ -1,0 +1,17 @@
+.expandable-text {
+    position: relative;
+}
+
+.expandable-text-button {
+    background: none;
+    border: none;
+    color: #007bff;
+    cursor: pointer;
+    padding: 0;
+    margin-top: 5px;
+    font-size: 0.9em;
+}
+
+.expandable-text-button:hover {
+    text-decoration: underline;
+}

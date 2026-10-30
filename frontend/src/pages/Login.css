@@ -1,0 +1,495 @@
+/* LOGIN - DISEÑO SIMPLE Y CENTRADO - FONDO PROFESIONAL */
+
+/* Fondo principal - diseño profesional */
+.login-bg {
+  min-height: 100vh;
+  background: 
+    radial-gradient(ellipse at top left, rgba(59, 130, 246, 0.1) 0%, transparent 50%),
+    radial-gradient(ellipse at bottom right, rgba(147, 51, 234, 0.1) 0%, transparent 50%),
+    linear-gradient(135deg, #f8fafc 0%, #e2e8f0 50%, #f1f5f9 100%);
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  position: relative !important;
+  overflow: hidden !important;
+  padding: 2rem !important;
+  margin: 0 !important;
+}
+
+/* Patrón de fondo profesional */
+.login-bg::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    radial-gradient(circle at 20% 80%, rgba(59, 130, 246, 0.03) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(147, 51, 234, 0.03) 0%, transparent 50%),
+    radial-gradient(circle at 40% 40%, rgba(34, 197, 94, 0.02) 0%, transparent 50%);
+  background-size: 60px 60px, 80px 80px, 100px 100px;
+  background-position: 0 0, 30px 30px, 60px 60px;
+  opacity: 0.8;
+  animation: subtleMove 20s ease-in-out infinite;
+}
+
+/* Elementos decorativos flotantes */
+.login-bg::after {
+  content: '';
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(59, 130, 246, 0.05) 0%, transparent 70%);
+  border-radius: 50%;
+  top: -150px;
+  right: -150px;
+  animation: float 15s ease-in-out infinite;
+}
+
+/* Segundo elemento flotante */
+.login-bg .floating-element {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle, rgba(147, 51, 234, 0.03) 0%, transparent 70%);
+  border-radius: 50%;
+  bottom: -100px;
+  left: -100px;
+  animation: float 20s ease-in-out infinite reverse;
+}
+
+/* Animaciones sutiles */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  33% {
+    transform: translateY(-20px) rotate(120deg);
+  }
+  66% {
+    transform: translateY(10px) rotate(240deg);
+  }
+}
+
+@keyframes subtleMove {
+  0%, 100% {
+    background-position: 0 0, 30px 30px, 60px 60px;
+    opacity: 0.8;
+  }
+  50% {
+    background-position: 20px 20px, 50px 50px, 80px 80px;
+    opacity: 0.6;
+  }
+}
+
+/* Contenedor principal - centrado y simple con mejor sombra */
+.login-main-card {
+  background: rgba(255, 255, 255, 0.95) !important;
+  backdrop-filter: blur(10px) !important;
+  border-radius: 16px !important;
+  box-shadow: 
+    0 20px 25px -5px rgba(0, 0, 0, 0.1),
+    0 10px 10px -5px rgba(0, 0, 0, 0.04),
+    0 0 0 1px rgba(0, 0, 0, 0.02) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  overflow: hidden !important;
+  max-width: 400px !important;
+  width: 100% !important;
+  min-height: auto !important;
+  position: relative !important;
+  z-index: 10 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* Panel izquierdo - oculto */
+.login-main-left {
+  display: none !important;
+}
+
+/* Panel derecho - formulario centrado */
+.login-main-right {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 2rem !important;
+  background: white !important;
+  width: 100% !important;
+  margin: 0 !important;
+  position: relative !important;
+}
+
+/* Contenedor del botón volver */
+.back-to-home-container {
+  position: absolute !important;
+  top: 1rem !important;
+  right: 1rem !important;
+  z-index: 20 !important;
+}
+
+/* Botón volver a inicio */
+.back-to-home-btn {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 0.5rem 1rem !important;
+  background: rgba(255, 255, 255, 0.9) !important;
+  backdrop-filter: blur(10px) !important;
+  border: 1px solid rgba(24, 119, 242, 0.2) !important;
+  border-radius: 20px !important;
+  color: #1877f2 !important;
+  text-decoration: none !important;
+  font-size: 0.85rem !important;
+  font-weight: 500 !important;
+  transition: all 0.3s ease !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+  font-family: system-ui, -apple-system, 'Segoe UI', sans-serif !important;
+}
+
+.back-to-home-btn:hover {
+  background: #1877f2 !important;
+  color: white !important;
+  border-color: #1877f2 !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 4px 12px rgba(24, 119, 242, 0.3) !important;
+  text-decoration: none !important;
+}
+
+.back-to-home-btn:active {
+  transform: translateY(0) !important;
+  box-shadow: 0 2px 6px rgba(24, 119, 242, 0.2) !important;
+}
+
+.back-text {
+  font-size: 0.85rem !important;
+}
+
+.login-card-modern {
+  width: 100% !important;
+  max-width: 100% !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* Logo simple */
+.login-logo-modern {
+  width: 60px !important;
+  height: 60px !important;
+  border-radius: 50% !important;
+  margin-bottom: 1.5rem !important;
+  display: block !important;
+  object-fit: cover !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.14) !important;
+  border: none !important;
+}
+
+.login-logo-modern:hover {
+  transform: none !important;
+}
+
+
+/* Títulos */
+.login-title {
+  font-size: 1.5rem !important;
+  font-weight: 600 !important;
+  color: #1c1e21 !important;
+  margin-bottom: 0.5rem !important;
+  text-align: center !important;
+  line-height: 1.2 !important;
+  font-family: system-ui, -apple-system, 'Segoe UI', sans-serif !important;
+}
+
+.login-subtitle {
+  font-size: 0.95rem !important;
+  color: #606770 !important;
+  margin-bottom: 1.5rem !important;
+  text-align: center !important;
+  line-height: 1.4 !important;
+  font-family: system-ui, -apple-system, 'Segoe UI', sans-serif !important;
+}
+
+/* Formulario */
+.login-form-modern {
+  width: 100% !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 1rem !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.form-group-modern {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 0.5rem !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.form-group-modern label {
+  font-size: 0.85rem !important;
+  color: #606770 !important;
+  font-weight: 500 !important;
+  margin-bottom: 0.25rem !important;
+  font-family: system-ui, -apple-system, 'Segoe UI', sans-serif !important;
+}
+
+.form-group-modern input {
+  padding: 0.75rem 1rem !important;
+  border: 1px solid #dddfe2 !important;
+  border-radius: 6px !important;
+  font-size: 1rem !important;
+  background: white !important;
+  transition: all 0.2s ease !important;
+  outline: none !important;
+  color: #1c1e21 !important;
+  font-family: system-ui, -apple-system, 'Segoe UI', sans-serif !important;
+  margin: 0 !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+.form-group-modern input::placeholder {
+  color: #8a8d91 !important;
+}
+
+.form-group-modern input:focus {
+  border-color: #1877f2 !important;
+  background: white !important;
+  box-shadow: 0 0 0 2px rgba(24, 119, 242, 0.2) !important;
+}
+
+.form-group-modern input:hover {
+  border-color: #ccd0d5 !important;
+}
+
+/* Links de ayuda */
+.login-links-row {
+  width: 100% !important;
+  display: flex !important;
+  justify-content: flex-end !important;
+  margin-bottom: 1rem !important;
+}
+
+.login-link {
+  color: #1877f2 !important;
+  font-size: 0.85rem !important;
+  text-decoration: none !important;
+  font-weight: 500 !important;
+  transition: color 0.2s ease !important;
+  font-family: system-ui, -apple-system, 'Segoe UI', sans-serif !important;
+}
+
+.login-link:hover {
+  color: #166fe5 !important;
+  text-decoration: underline !important;
+}
+
+/* Botón principal - SOBRESCRIBIENDO RESET */
+.login-btn-modern {
+  margin-top: 0.5rem !important;
+  padding: 0.75rem 1rem !important;
+  width: 100% !important;
+  background: #1877f2 !important;
+  color: white !important;
+  font-size: 1rem !important;
+  font-weight: 600 !important;
+  border: 1px solid #1877f2 !important;
+  border-radius: 6px !important;
+  cursor: pointer !important;
+  box-shadow: none !important;
+  transition: background 0.2s ease !important;
+  position: relative !important;
+  overflow: hidden !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+  min-height: 44px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  font-family: system-ui, -apple-system, 'Segoe UI', sans-serif !important;
+  text-decoration: none !important;
+  margin: 0 !important;
+  outline: none !important;
+}
+
+.login-btn-modern::before {
+  display: none !important;
+}
+
+.login-btn-modern:hover {
+  transform: none !important;
+  box-shadow: none !important;
+  background: #166fe5 !important;
+  border-color: #166fe5 !important;
+  text-decoration: none !important;
+}
+
+.login-btn-modern:hover::before {
+  display: none !important;
+}
+
+.login-btn-modern:active {
+  transform: none !important;
+  box-shadow: none !important;
+  background: #166fe5 !important;
+  border-color: #166fe5 !important;
+}
+
+.login-btn-modern:focus {
+  outline: none !important;
+  box-shadow: 0 0 0 2px rgba(24, 119, 242, 0.2) !important;
+}
+
+/* Footer del login */
+.login-help-row {
+  margin-top: 1.5rem !important;
+  text-align: center !important;
+  font-size: 0.85rem !important;
+  color: #606770 !important;
+  line-height: 1.4 !important;
+  padding-top: 1rem !important;
+  border-top: 1px solid #dddfe2 !important;
+  font-family: system-ui, -apple-system, 'Segoe UI', sans-serif !important;
+}
+
+.login-help-row .login-link {
+  font-weight: 600 !important;
+  color: #1877f2 !important;
+}
+
+/* SOBRESCRIBIENDO ESTILOS GLOBALES */
+.login-bg * {
+  box-sizing: border-box !important;
+}
+
+.login-bg button,
+.login-bg [type='button'],
+.login-bg [type='submit'],
+.login-bg [type='reset'] {
+  background: #1877f2 !important;
+  border: 1px solid #1877f2 !important;
+  cursor: pointer !important;
+  font: inherit !important;
+  color: white !important;
+}
+
+/* Responsive */
+@media (max-width: 968px) {
+  .login-main-card {
+    max-width: 400px !important;
+    min-height: auto !important;
+  }
+
+  .login-main-left {
+    display: none !important;
+  }
+
+  .login-main-right {
+    padding: 1.5rem !important;
+  }
+
+  .login-card-modern {
+    max-width: 100% !important;
+  }
+
+  .login-title {
+    font-size: 1.5rem !important;
+  }
+
+  .login-bg {
+    padding: 1rem !important;
+  }
+
+  /* Botón volver en tablet */
+  .back-to-home-container {
+    top: 0.75rem !important;
+    right: 0.75rem !important;
+  }
+
+  .back-to-home-btn {
+    padding: 0.4rem 0.8rem !important;
+    font-size: 0.8rem !important;
+  }
+
+  .back-text {
+    font-size: 0.8rem !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .login-bg {
+    padding: 0.5rem !important;
+  }
+
+  .login-main-right {
+    padding: 1rem !important;
+  }
+
+  .login-title {
+    font-size: 1.4rem !important;
+  }
+
+  .login-subtitle {
+    font-size: 0.9rem !important;
+  }
+
+  .form-group-modern input {
+    padding: 0.6rem 0.8rem !important;
+    font-size: 0.95rem !important;
+  }
+
+  .login-btn-modern {
+    padding: 0.6rem 1rem !important;
+    font-size: 0.95rem !important;
+    min-height: 40px !important;
+  }
+
+  /* Botón volver en móvil */
+  .back-to-home-container {
+    top: 0.5rem !important;
+    right: 0.5rem !important;
+  }
+
+  .back-to-home-btn {
+    padding: 0.35rem 0.7rem !important;
+    font-size: 0.75rem !important;
+    border-radius: 15px !important;
+  }
+
+  .back-text {
+    font-size: 0.75rem !important;
+  }
+}
+
+/* Estados de loading */
+.login-btn-modern:disabled {
+  opacity: 0.6 !important;
+  cursor: not-allowed !important;
+  transform: none !important;
+  background: #ccd0d5 !important;
+  border-color: #ccd0d5 !important;
+}
+
+.login-btn-modern:disabled:hover {
+  transform: none !important;
+  box-shadow: none !important;
+  background: #ccd0d5 !important;
+  border-color: #ccd0d5 !important;
+}
+
+/* Validación */
+.form-group-modern input.error {
+  border-color: #fa383e !important;
+  background: #fff5f5 !important;
+}
+
+.form-group-modern input.error:focus {
+  border-color: #fa383e !important;
+  box-shadow: 0 0 0 2px rgba(250, 56, 62, 0.2) !important;
+}

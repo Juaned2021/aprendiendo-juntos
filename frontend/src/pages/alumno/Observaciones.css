@@ -1,0 +1,158 @@
+/* Estilos específicos para la página de observaciones del alumno */
+
+/* Estilos para descripción con "ver más/menos" en la tabla */
+.description-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  max-width: 200px; /* Ancho fijo para la columna de descripción */
+  min-width: 0;
+  position: relative;
+}
+
+.description-text {
+  color: #4b5563;
+  line-height: 1.4;
+  font-size: 0.875rem;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  hyphens: auto;
+  max-width: 100%;
+  overflow: hidden;
+  min-width: 0;
+  /* Altura máxima fija - 2 líneas cuando está contraído */
+  max-height: 3.6em; /* 2 líneas aproximadamente */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2; /* Propiedad estándar para compatibilidad */
+  -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
+  box-sizing: border-box;
+  transition: max-height 0.3s ease;
+}
+
+.description-container.expanded .description-text {
+  max-height: 8em; /* Altura máxima fija cuando está expandido (aprox 5-6 líneas) */
+  overflow-y: auto; /* Scroll interno si el contenido es muy largo */
+  overflow-x: hidden;
+  -webkit-line-clamp: unset;
+  line-clamp: unset; /* Propiedad estándar para compatibilidad */
+  display: block;
+  white-space: pre-wrap; /* Mantiene los saltos de línea */
+  /* Scroll personalizado */
+  scrollbar-width: thin;
+  scrollbar-color: #cbd5e1 #f1f5f9;
+}
+
+.description-container.expanded .description-text::-webkit-scrollbar {
+  width: 4px;
+}
+
+.description-container.expanded .description-text::-webkit-scrollbar-track {
+  background: #f1f5f9;
+  border-radius: 2px;
+}
+
+.description-container.expanded .description-text::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 2px;
+}
+
+.description-container.expanded .description-text::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+.ver-mas-btn-table {
+  background: none;
+  border: none;
+  color: #3b82f6;
+  font-weight: 500;
+  font-size: 0.75rem;
+  cursor: pointer;
+  padding: 0.125rem 0.25rem;
+  text-align: left;
+  transition: color 0.2s ease, text-decoration 0.2s ease;
+  align-self: flex-start;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  hyphens: auto;
+  max-width: 100%;
+  overflow: hidden;
+  min-width: 0;
+  border-radius: 0.25rem;
+  background-color: #f8fafc;
+  border: 1px solid #e2e8f0;
+}
+
+.ver-mas-btn-table:hover {
+  color: #2563eb;
+  text-decoration: underline;
+  background-color: #f1f5f9;
+}
+
+.ver-mas-btn-table:active {
+  transform: scale(0.98);
+}
+
+/* Ajustar ancho de columnas de la tabla */
+.admin-table th:nth-child(2), /* Columna Descripción */
+.admin-table td:nth-child(2) {
+  width: 250px; /* Ancho fijo para la columna de descripción */
+  max-width: 250px;
+  min-width: 200px;
+}
+
+.admin-table th:nth-child(1), /* Columna Encabezado */
+.admin-table td:nth-child(1) {
+  width: 150px;
+  max-width: 150px;
+  min-width: 120px;
+}
+
+.admin-table th:nth-child(3), /* Columna Fecha */
+.admin-table td:nth-child(3) {
+  width: 100px;
+  max-width: 100px;
+  min-width: 90px;
+}
+
+.admin-table tbody tr {
+  transition: all 0.2s ease;
+  vertical-align: top;
+}
+
+/* Asegurar que las filas no se expandan cuando el contenido se expande */
+.admin-table tbody tr td {
+  vertical-align: top;
+  position: relative;
+}
+
+/* Contenedor de la celda de descripción para mantener altura fija */
+.admin-table tbody tr td:nth-child(2) {
+  height: auto;
+  min-height: 60px; /* Altura mínima para acomodar el contenido */
+  max-height: 120px; /* Altura máxima para evitar expansión */
+  overflow: hidden;
+  position: relative;
+}
+
+.admin-table tbody tr td:nth-child(2).expanded-cell {
+  max-height: 150px; /* Altura cuando está expandido */
+  overflow: visible;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .container {
+        padding: var(--spacing-md);
+    }
+    
+    .admin-table {
+        font-size: 0.9rem;
+    }
+    
+    .admin-table th,
+    .admin-table td {
+        padding: var(--spacing-sm);
+    }
+}

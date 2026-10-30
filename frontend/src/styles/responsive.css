@@ -1,0 +1,78 @@
+/* Estilos para tablet */
+
+@media (min-width: 768px) {
+  /* Aquí puedes agregar estilos específicos para tablets */
+  .landing-hero {
+    flex-direction: row;
+    gap: 2.5rem;
+    min-height: 340px;
+    text-align: left;
+  }
+
+  .hero-bg {
+    margin-left: 1.5rem;
+    margin-top: 0;
+  }
+
+  .landing-benefits {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 2.2rem;
+    max-width: 1100px;
+  }
+
+  .about-card {
+    flex-direction: row;
+    padding: 2.5rem 2.2rem 2.2rem 2.2rem;
+    gap: 2.5rem;
+    align-items: center;
+  }
+
+  .about-card-content {
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .landing-info {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2.2rem;
+    max-width: 1100px;
+  }
+
+  .info-block {
+    padding: 2rem 1.5rem 1.5rem 1.5rem;
+  }
+
+  .back-button {
+    display: none !important;
+  }
+}
+
+/* Estilos para desktop */
+@media (min-width: 1024px) {
+  /* Aquí puedes agregar estilos específicos para desktops */
+  .login-main-card {
+    flex-direction: row;
+    min-height: 520px;
+    max-width: 900px;
+  }
+
+  .login-main-left {
+    display: flex;
+    flex: 1.2;
+    min-width: 320px;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .login-main-right {
+    padding: 0;
+  }
+
+  .login-card-modern {
+    padding: 2.5rem 2.2rem 2rem 2.2rem;
+    max-width: 370px;
+  }
+}

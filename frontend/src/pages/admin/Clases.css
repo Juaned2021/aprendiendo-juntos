@@ -1,0 +1,438 @@
+.clases-container {
+  padding: var(--spacing-lg);
+}
+
+.clases-container h1 {
+  margin-bottom: var(--spacing-xl);
+}
+
+.form-group-row {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--spacing-md);
+  flex-wrap: wrap;
+}
+
+.form-group-row .form-group {
+  flex: 1;
+  min-width: 220px;
+}
+
+.btn-add-inline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-sm);
+  align-self: flex-end;
+  padding: var(--spacing-sm) var(--spacing-md);
+  background-color: var(--success);
+  color: var(--text-light);
+  border: none;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+  white-space: nowrap;
+}
+
+.btn-add-inline:hover {
+  background-color: #16a34a;
+  transform: translateY(-1px);
+}
+
+
+/* Modal styles (local fallback if not defined globally) */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,0.45);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: var(--spacing-md);
+  z-index: 1200;
+}
+
+.modal-content {
+  max-width: 900px;
+  width: min(95vw, 900px);
+  max-height: 95vh;
+  overflow-y: auto;
+  animation: fadeIn 0.2s ease-in;
+  background: var(--bg-surface);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-xl);
+  padding: var(--spacing-lg);
+}
+
+.modal-content h2 {
+  margin-bottom: var(--spacing-lg);
+}
+
+.modal-content .clases-form {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: var(--spacing-lg);
+}
+
+.modal-content .form-actions {
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: var(--spacing-md);
+}
+
+.modal-content .form-actions button {
+  min-width: 140px;
+}
+
+.modal-content .alumnos-disponibles,
+.modal-content .alumnos-seleccionados {
+  padding: var(--spacing-md);
+}
+
+.modal-content .alumnos-list-scroll {
+  max-height: 260px;
+}
+
+.clases-form {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: var(--spacing-lg);
+}
+
+.form-section {
+  grid-column: 1 / -1;
+  margin-top: var(--spacing-lg);
+}
+
+.form-section h3 {
+  margin-bottom: var(--spacing-md);
+  color: var(--text-primary);
+  border-bottom: 2px solid var(--border-color);
+  padding-bottom: var(--spacing-sm);
+}
+
+.horarios-list,
+.alumnos-list,
+.alumnos-list-scroll {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.horario-item {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)) 48px;
+  gap: var(--spacing-md);
+  padding: var(--spacing-md);
+  background: var(--bg-secondary);
+  border-radius: var(--border-radius);
+  align-items: center;
+}
+
+.horario-item .btn-icon {
+  margin: 0;
+  justify-self: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f3f4f6;
+  color: #374151;
+  border: none;
+  border-radius: 0.375rem;
+  transition: all 0.2s ease;
+}
+
+.horario-item .btn-icon:hover {
+  background-color: #e5e7eb;
+  color: #1f2937;
+}
+
+.horario-item .btn-icon.btn-danger {
+  color: #dc2626;
+}
+
+.horario-item .btn-icon.btn-danger:hover {
+  background-color: #fef2f2;
+  color: #b91c1c;
+}
+
+.alumno-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--spacing-md);
+  background: var(--bg-secondary);
+  border-radius: var(--border-radius);
+}
+
+.btn-add {
+  background-color: var(--success);
+  color: var(--text-light);
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  width: fit-content;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.clases-lista {
+  margin-top: var(--spacing-xl);
+}
+.filtros-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: var(--spacing-md);
+  align-items: end;
+  width: 100%;
+  padding-bottom: var(--spacing-sm);
+}
+
+/* Asegurar que la tarjeta que contiene la tabla ocupe todo el ancho disponible */
+.clases-lista > .card {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Forzar inputs y selects dentro de filtros a ocupar todo el ancho de su celda */
+.filtros-container .form-group input,
+.filtros-container .form-group select,
+.filtros-container .form-group textarea {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.modal-large {
+  max-width: 900px;
+}
+
+.alumnos-gestion {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-lg);
+}
+
+.alumnos-disponibles,
+.alumnos-seleccionados {
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  padding: var(--spacing-md);
+  background: var(--bg-primary);
+}
+
+.alumnos-disponibles input,
+.alumnos-seleccionados input,
+.alumnos-disponibles .input,
+.alumnos-seleccionados .input {
+  width: 100%;
+  margin-bottom: var(--spacing-md);
+}
+
+@media screen and (max-width: 900px) {
+  .alumnos-gestion {
+    grid-template-columns: 1fr;
+  }
+
+  .form-group-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .modal-content {
+    width: 100%;
+    padding: var(--spacing-md);
+  }
+
+  .modal-content .clases-form {
+    grid-template-columns: 1fr;
+  }
+
+  .modal-content .alumnos-gestion {
+    grid-template-columns: 1fr;
+  }
+
+  .modal-content .form-actions {
+    justify-content: stretch;
+  }
+
+  .modal-content .form-actions button {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 680px) {
+  .horario-item {
+    grid-template-columns: 1fr;
+  }
+
+  .horario-item .btn-icon {
+    justify-self: end;
+    margin-top: var(--spacing-sm);
+  }
+
+  .modal-content {
+    width: 100%;
+    padding: var(--spacing-sm);
+  }
+}
+
+.alumnos-disponibles h4,
+.alumnos-seleccionados h4 {
+  margin-bottom: var(--spacing-md);
+  color: var(--text-primary);
+  font-size: 1rem;
+}
+
+.alumnos-list-scroll {
+  max-height: 300px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.alumno-item-simple {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--spacing-md);
+  padding: var(--spacing-sm) var(--spacing-md);
+  background: var(--bg-secondary);
+  border-radius: var(--border-radius);
+}
+
+.alumno-item-simple button {
+  min-width: 2.5rem;
+}
+
+/* Botones de acción en tabla */
+.admin-table .btn-icon {
+  background-color: #f3f4f6;
+  color: #374151;
+  border: none;
+  border-radius: 0.375rem;
+  padding: 0.5rem;
+  transition: all 0.2s ease;
+}
+
+.admin-table .btn-icon:hover {
+  background-color: #e5e7eb;
+  color: #1f2937;
+}
+
+.admin-table .btn-icon.btn-danger {
+  color: #dc2626;
+}
+
+.admin-table .btn-icon.btn-danger:hover {
+  background-color: #fef2f2;
+  color: #b91c1c;
+}
+
+.form-actions {
+  grid-column: 1 / -1;
+  display: flex;
+  gap: var(--spacing-md);
+  justify-content: flex-end;
+  margin-top: var(--spacing-lg);
+}
+
+.form-actions button,
+.form-actions .btn {
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+.form-actions .btn-secondary {
+  background-color: var(--bg-secondary);
+  color: var(--text-secondary);
+  border: 1px solid var(--border-color);
+}
+
+.form-actions .btn-secondary:hover {
+  background-color: var(--bg-hover);
+}
+
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--spacing-sm);
+  margin-top: var(--spacing-lg);
+}
+
+.pagination-container button {
+  background-color: var(--primary);
+  color: var(--text-light);
+  border: none;
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.pagination-container button:disabled {
+  background-color: var(--bg-secondary);
+  color: var(--text-secondary);
+  cursor: not-allowed;
+}
+
+.pagination-container span {
+  font-weight: 500;
+}
+
+
+/* Responsive Table */
+@media screen and (max-width: 768px) {
+  .clases-form {
+    grid-template-columns: 1fr;
+  }
+  
+  .horario-item {
+    grid-template-columns: 1fr;
+  }
+
+  .horario-item .btn-icon {
+    margin-top: var(--spacing-sm);
+    margin-left: 0;
+  }
+
+  .alumnos-gestion {
+    grid-template-columns: 1fr;
+  }
+
+  .filtros-container {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Mobile-specific: ensure filtros stack and horario button stays visible */
+@media screen and (max-width: 480px) {
+  .filtros-container {
+    grid-template-columns: 1fr !important;
+    gap: var(--spacing-sm);
+  }
+
+  .filtros-container .form-group input,
+  .filtros-container .form-group select,
+  .filtros-container .form-group textarea {
+    width: 100%;
+  }
+
+  .horario-item {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--spacing-sm);
+  }
+
+  .horario-item .btn-icon {
+    justify-self: end;
+    margin-top: var(--spacing-sm);
+  }
+}
